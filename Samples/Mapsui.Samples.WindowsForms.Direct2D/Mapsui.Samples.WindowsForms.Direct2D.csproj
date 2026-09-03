@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net10.0-windows10.0.22000.0</TargetFramework>
+    <UseWindowsForms>true</UseWindowsForms>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Mapsui.Rendering.Direct2D\Mapsui.Rendering.Direct2D.csproj" />
+    <ProjectReference Include="..\..\Mapsui.UI.WindowsForms.Direct2D\Mapsui.UI.WindowsForms.Direct2D.csproj" />
+  </ItemGroup>
+
+</Project>

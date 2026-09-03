@@ -1,0 +1,21 @@
+<Project>
+  <PropertyGroup>
+    <WarpToolkitDirectXProject
+      Condition="'$(WarpToolkitDirectXProject)' == '' and Exists('$(MSBuildThisFileDirectory)..\external\WARP\src\WarpToolkit.WinForms.DirectX\WarpToolkit.WinForms.DirectX.csproj')">$(MSBuildThisFileDirectory)..\external\WARP\src\WarpToolkit.WinForms.DirectX\WarpToolkit.WinForms.DirectX.csproj</WarpToolkitDirectXProject>
+    <WarpToolkitDirectXProject
+      Condition="'$(WarpToolkitDirectXProject)' == '' and Exists('$(MSBuildThisFileDirectory)..\..\WARP\src\WarpToolkit.WinForms.DirectX\WarpToolkit.WinForms.DirectX.csproj')">$(MSBuildThisFileDirectory)..\..\WARP\src\WarpToolkit.WinForms.DirectX\WarpToolkit.WinForms.DirectX.csproj</WarpToolkitDirectXProject>
+  </PropertyGroup>
+
+  <ItemGroup Condition="'$(WarpToolkitDirectXProject)' != ''">
+    <ProjectReference Include="$(WarpToolkitDirectXProject)" />
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(WarpToolkitDirectXProject)' == '' and '$(WarpToolkitDirectXVersion)' != ''">
+    <PackageReference Include="WarpToolkit.WinForms.DirectX" VersionOverride="$(WarpToolkitDirectXVersion)" />
+  </ItemGroup>
+
+  <Target Name="ValidateWarpToolkitDirectXReference" BeforeTargets="ResolveProjectReferences"
+          Condition="'$(WarpToolkitDirectXProject)' == '' and '$(WarpToolkitDirectXVersion)' == ''">
+    <Error Text="WarpToolkit.WinForms.DirectX was not found. Check out KlausLoeffelmannOrg/WARP beside Mapsui, under external\WARP, set WarpToolkitDirectXProject, or set WarpToolkitDirectXVersion to a published package version." />
+  </Target>
+</Project>

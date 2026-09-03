@@ -1,0 +1,32 @@
+name: Direct2D
+
+on:
+  push:
+    branches:
+      - feature/mapsui-direct2d
+  pull_request:
+    branches:
+      - feature/mapsui-direct2d
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/checkout@v4
+        with:
+          repository: KlausLoeffelmannOrg/WARP
+          ref: feature/mapsui-direct2d
+          path: external/WARP
+          fetch-depth: 0
+      - uses: actions/setup-dotnet@v5
+        with:
+          dotnet-version: 10.0.400
+      - name: Restore
+        working-directory: Mapsui.Direct2D
+        run: dotnet restore Mapsui.Direct2D.slnx -p:TargetFrameworks=net10.0-windows10.0.22000.0
+      - name: Build
+        working-directory: Mapsui.Direct2D
+        run: dotnet build Mapsui.Direct2D.slnx --no-restore --configuration Debug -p:TargetFrameworks=net10.0-windows10.0.22000.0 -p:EnforceCodeStyleInBuild=false

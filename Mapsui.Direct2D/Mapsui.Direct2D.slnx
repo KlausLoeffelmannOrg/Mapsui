@@ -1,0 +1,12 @@
+<Solution>
+  <Folder Name="/Samples/">
+    <Project Path="../Samples/Mapsui.Samples.WindowsForms.Direct2D/Mapsui.Samples.WindowsForms.Direct2D.csproj" />
+  </Folder>
+  <Folder Name="/Tests/">
+    <Project Path="../Tests/Mapsui.Rendering.Direct2D.Tests/Mapsui.Rendering.Direct2D.Tests.csproj" />
+  </Folder>
+  <Project Path="../Mapsui.Rendering.Direct2D/Mapsui.Rendering.Direct2D.csproj" />
+  <Project Path="../Mapsui.Tiling/Mapsui.Tiling.csproj" />
+  <Project Path="../Mapsui.UI.WindowsForms.Direct2D/Mapsui.UI.WindowsForms.Direct2D.csproj" />
+  <Project Path="../Mapsui/Mapsui.csproj" />
+</Solution>

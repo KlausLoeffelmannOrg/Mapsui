@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0-windows10.0.22000.0</TargetFramework>
+    <UseWindowsForms>true</UseWindowsForms>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <DefineConstants>$(DefineConstants);__WINDOWSFORMS__</DefineConstants>
+    <PackageId>Mapsui.WindowsForms.Direct2D</PackageId>
+    <Description>Direct2D and DirectComposition map control for Windows Forms.</Description>
+    <PackageTags>$(PackageTags) WindowsForms WinForms Direct2D DirectComposition</PackageTags>
+    <IsPackable>true</IsPackable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Mapsui.Rendering.Direct2D\Mapsui.Rendering.Direct2D.csproj" />
+    <ProjectReference Include="..\Mapsui.Tiling\Mapsui.Tiling.csproj" />
+    <ProjectReference Include="..\Mapsui\Mapsui.csproj" />
+  </ItemGroup>
+
+  <Import Project="..\Mapsui.Direct2D\Mapsui.Direct2D.props" />
+
+</Project>
