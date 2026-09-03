@@ -18,8 +18,11 @@ dotnet restore Mapsui.Direct2D.slnx -p:TargetFrameworks=net10.0-windows10.0.2200
 dotnet build Mapsui.Direct2D.slnx --no-restore -p:TargetFrameworks=net10.0-windows10.0.22000.0 -p:EnforceCodeStyleInBuild=false
 ```
 
-The projects also detect `external\WARP`, which is the CI checkout layout. To
-use another checkout, pass
+The projects also detect `external\WARP`. Cross-repository CI runs from WARP's
+private `feature/mapsui-direct2d` branch: it checks out this public feature
+branch beside WARP and supplies the WARP project path explicitly. This keeps
+private-repository credentials out of Mapsui workflows. To use another
+checkout, pass
 `-p:WarpToolkitDirectXProject=<path-to-WarpToolkit.WinForms.DirectX.csproj>`.
 Once a compatible package is published, pass
 `-p:WarpToolkitDirectXVersion=<version>` instead.
