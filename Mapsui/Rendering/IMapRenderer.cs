@@ -11,6 +11,19 @@ namespace Mapsui.Rendering;
 public interface IMapRenderer
 {
     /// <summary>
+    /// Prepares a platform-specific render target for the supplied pixel density.
+    /// </summary>
+    /// <remarks>
+    /// Renderers whose targets already use device-independent coordinates may keep the default
+    /// no-op implementation.
+    /// </remarks>
+    /// <param name="target">The platform-specific render target.</param>
+    /// <param name="pixelDensity">The number of physical pixels per device-independent pixel.</param>
+    void PrepareRenderTarget(object target, float pixelDensity)
+    {
+    }
+
+    /// <summary>
     /// Updates pre-created drawable objects for a layer. Called when layer data changes.
     /// Implementations that support the two-step rendering architecture should create drawables here.
     /// </summary>

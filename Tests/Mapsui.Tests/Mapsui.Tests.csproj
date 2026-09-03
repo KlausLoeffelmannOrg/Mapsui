@@ -27,6 +27,9 @@
 		<Compile Include="..\Mapsui.Rendering.Skia.Tests\File.cs">
 			<Link>File.cs</Link>
 		</Compile>
+		<Compile Include="..\..\Mapsui.UI.Shared\RenderController.cs">
+			<Link>Rendering\RenderController.cs</Link>
+		</Compile>
 	</ItemGroup>
 
 	<ItemGroup>

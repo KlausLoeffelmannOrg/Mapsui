@@ -69,7 +69,7 @@ public partial class MapControl : ContentView, IMapControl, IDisposable
         }
         view.SizeChanged += View_SizeChanged;
         Content = view;
-        SharedConstructor();
+        SharedConstructor(static () => new Mapsui.Rendering.Skia.MapRenderer());
         Mapsui.Utilities.PlatformUtilities.SetOpenInBrowserFunc(OpenInBrowserStatic);
     }
     public void InvalidateCanvas()

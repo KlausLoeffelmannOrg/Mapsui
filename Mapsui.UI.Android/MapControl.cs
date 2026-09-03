@@ -28,14 +28,14 @@ public partial class MapControl : ViewGroup, IMapControl
         base(context, attrs)
     {
         LocalConstructor();
-        SharedConstructor();
+        SharedConstructor(static () => new Mapsui.Rendering.Skia.MapRenderer());
     }
 
     public MapControl(Context context, IAttributeSet attrs, int defStyle) :
         base(context, attrs, defStyle)
     {
         LocalConstructor();
-        SharedConstructor();
+        SharedConstructor(static () => new Mapsui.Rendering.Skia.MapRenderer());
     }
 
 

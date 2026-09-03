@@ -75,6 +75,9 @@ public sealed class MapRenderer : IMapRenderer
         _layerRenderers[GridLayer.LayerRendererName] = GridLayerRenderer.Render;
     }
 
+    public void PrepareRenderTarget(object target, float pixelDensity)
+        => ((SKCanvas)target).Scale(pixelDensity, pixelDensity);
+
     /// <inheritdoc />
     // Resolves the dirty rect to a screen-space SKRect once here and passes it
     // through to the internal helpers, so screen-space requests never need world conversion.

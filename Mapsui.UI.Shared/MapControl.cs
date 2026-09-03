@@ -5,7 +5,6 @@ using Mapsui.Fetcher;
 using Mapsui.Layers;
 using Mapsui.Logging;
 using Mapsui.Rendering;
-using Mapsui.Rendering.Skia;
 using Mapsui.Utilities;
 using Mapsui.Widgets;
 using System.ComponentModel;
@@ -99,12 +98,17 @@ public partial class MapControl : INotifyPropertyChanged, IDisposable
     /// </summary>
     public event EventHandler<MapEventArgs>? MapPointerReleased;
 
-    private void SharedConstructor()
+    private void SharedConstructor(Func<IMapRenderer> createDefaultRenderer)
     {
+        ArgumentNullException.ThrowIfNull(createDefaultRenderer);
+
         PlatformUtilities.SetOpenInBrowserFunc(OpenInBrowser);
         Map = new Map();
         System.Text.Encoding.RegisterProvider(System.Text.CodePagesEncodingProvider.Instance); // Mapsui.Rendering.Skia use Mapsui.Nts where GetDbaseLanguageDriver need encoding providers
-        _renderController = new(() => Map, InvalidateCanvas);
+        var mapRenderer = DefaultRendererFactory.IsConfigured
+            ? DefaultRendererFactory.Create()
+            : createDefaultRenderer();
+        _renderController = new(() => Map, InvalidateCanvas, mapRenderer);
     }
 
     private void SharedOnSizeChanged(double width, double height)

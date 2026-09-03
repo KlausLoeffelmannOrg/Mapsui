@@ -19,14 +19,14 @@ public partial class MapControl : UIView, IMapControl
         : base(frame)
     {
         LocalConstructor();
-        SharedConstructor();
+        SharedConstructor(static () => new Mapsui.Rendering.Skia.MapRenderer());
     }
 
     [Preserve]
     public MapControl(IntPtr handle) : base(handle) // Used when initialized from storyboard
     {
         LocalConstructor();
-        SharedConstructor();
+        SharedConstructor(static () => new Mapsui.Rendering.Skia.MapRenderer());
     }
 
     public void InvalidateCanvas()

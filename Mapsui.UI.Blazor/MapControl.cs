@@ -37,7 +37,7 @@ public partial class MapControl : ComponentBase, IMapControl
 
     public MapControl()
     {
-        SharedConstructor();
+        SharedConstructor(static () => new Mapsui.Rendering.Skia.MapRenderer());
     }
 
     public void InvalidateCanvas()

@@ -58,7 +58,7 @@ public partial class MapControl : Grid, IMapControl, IDisposable
 
         SkiaCanvas.Visibility = Visibility.Visible;
 
-        SharedConstructor();
+        SharedConstructor(static () => new Mapsui.Rendering.Skia.MapRenderer());
     }
 
     public void InvalidateCanvas()

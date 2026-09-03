@@ -4,12 +4,10 @@ using Mapsui.Extensions;
 using Mapsui.Layers;
 using Mapsui.Logging;
 using Mapsui.Manipulations;
-using Mapsui.Rendering.Skia;
 using Mapsui.Styles;
 using Mapsui.Utilities;
 using Mapsui.Widgets;
 using Mapsui.Widgets.InfoWidgets;
-using SkiaSharp;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -33,19 +31,21 @@ public sealed class RenderController : IDisposable
     private bool _isRunning = true;
     private int _timestampStartDraw;
     private readonly Stopwatch _stopwatch = new(); // Stopwatch for measuring drawing times
-    // Use the explicit factory if one was configured (e.g. by SampleConfiguration.ApplyRendererConfig());
-    // otherwise fall back to direct construction which triggers MapRenderer's static ctor and
-    // registers the standard Skia renderer as the default factory.
-    private IMapRenderer _mapRenderer = DefaultRendererFactory.IsConfigured ? DefaultRendererFactory.Create() : new MapRenderer();
+    private IMapRenderer _mapRenderer;
     private readonly Func<Map?> _getMap;
     // Pending refresh request: null = nothing pending yet, otherwise accumulates since the last render.
     private RefreshRequest? _pendingRefresh;
     private readonly object _refreshLock = new();
 
-    public RenderController(Func<Map?> getMap, Action InvalidateCanvas)
+    public RenderController(Func<Map?> getMap, Action invalidateCanvas, IMapRenderer mapRenderer)
     {
+        ArgumentNullException.ThrowIfNull(getMap);
+        ArgumentNullException.ThrowIfNull(invalidateCanvas);
+        ArgumentNullException.ThrowIfNull(mapRenderer);
+
         _getMap = getMap; // Using a callback to get the Map instead of a pointer because the Map field change later on.
-        _invalidateCanvas = InvalidateCanvas;
+        _invalidateCanvas = invalidateCanvas;
+        _mapRenderer = mapRenderer;
         _timestampStartDraw = GetTimestampInMilliseconds();
         Catch.TaskRun(InvalidateLoopAsync);
     }
@@ -189,7 +189,7 @@ public sealed class RenderController : IDisposable
             _stopwatch.Restart();
             _timestampStartDraw = GetTimestampInMilliseconds();
 
-            ((SKCanvas)canvas).Scale(pixelDensity.Value, pixelDensity.Value);
+            _mapRenderer.PrepareRenderTarget(canvas, pixelDensity.Value);
 
             var pending = TakePendingRefresh();
             _mapRenderer.Render(canvas, map.Navigator.Viewport, map.Layers, map.Widgets, map.RenderService, map.BackColor, pending?.DirtyRect, pending?.CoordinateSpace ?? CoordinateSpace.World);

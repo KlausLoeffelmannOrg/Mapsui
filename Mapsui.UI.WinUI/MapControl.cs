@@ -48,7 +48,7 @@ public partial class MapControl : Grid, IMapControl, IDisposable
         Children.Add(_renderControl);
 
         // The Canvas needs to be first set before calling the Shared Constructor or else it crashes in the InvalidateCanvas
-        SharedConstructor();
+        SharedConstructor(static () => new Mapsui.Rendering.Skia.MapRenderer());
 
         Children.Add(_selectRectangle);
 

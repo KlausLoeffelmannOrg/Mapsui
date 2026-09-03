@@ -62,6 +62,9 @@ public sealed class MapRenderer : IMapRenderer
         _layerRenderers[GridLayer.LayerRendererName] = GridLayerRenderer.Render;
     }
 
+    public void PrepareRenderTarget(object target, float pixelDensity)
+        => ((SKCanvas)target).Scale(pixelDensity, pixelDensity);
+
     public void Render(object target, Viewport viewport, IEnumerable<ILayer> layers,
         IEnumerable<IWidget> widgets, RenderService renderService, Color? background = null, MRect? dirtyRegion = null, CoordinateSpace coordinateSpace = CoordinateSpace.World)
     {

@@ -54,7 +54,7 @@ public partial class MapControl : UserControl, IMapControl, IDisposable
 
         Controls.Add(view);
 
-        SharedConstructor();
+        SharedConstructor(static () => new Mapsui.Rendering.Skia.MapRenderer());
     }
 
     public void InvalidateCanvas()
